@@ -6,7 +6,7 @@ export default class BetterQuickSwitcher extends Plugin {
     commom_prefix(a: string, b: string) {
         let c = "";
         for (let i = 0; i < Math.min(a.length, b.length); ++i) {
-            if (a[i] == b[i]) { c += a[i]; }
+            if (a[i].toLocaleLowerCase() == b[i].toLocaleLowerCase()) { c += a[i]; }
             else { break; }
         }
         return c;
@@ -22,12 +22,12 @@ export default class BetterQuickSwitcher extends Plugin {
             console.log('prompt =', prompt_text);
             if (select_text == undefined) { return; }
             if (prompt_text == undefined || prompt_text == "") { return; }
-            let common_prfx = this.commom_prefix(select_text.toLocaleLowerCase(), prompt_text.toLocaleLowerCase()).trim();
-            let suffix_text = select_text.toLocaleLowerCase();
-            if (common_prfx != "") {
-                suffix_text = suffix_text?.split(common_prfx)[1];
-            }
-            suffix_text = suffix_text?.split('/')[0];
+            let common_prfx = this.commom_prefix(select_text, prompt_text).trim();
+            let suffix_text = select_text;
+                if (common_prfx != "") {
+                    suffix_text = suffix_text?.split(common_prfx)[1];
+                }
+                suffix_text = suffix_text?.split('/')[0];
             console.log('common_prfx = ', common_prfx);
             console.log('suffix_text = ', suffix_text);
             let prompt_item = document.querySelector('input.prompt-input') as HTMLInputElement;
