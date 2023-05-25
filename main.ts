@@ -25,11 +25,12 @@ export default class BetterQuickSwitcher extends Plugin {
         if (common_prfx != "") {
             suffix_text = suffix_text?.split(common_prfx)[1];
         }
-        suffix_text = suffix_text?.split('/')[0];
+        let suffix_text_arr = suffix_text?.split('/');
+        suffix_text = suffix_text_arr[0];
         console.log('common_prfx = ', common_prfx);
         console.log('suffix_text = ', suffix_text);
         let prompt_item = document.querySelector('input.prompt-input') as HTMLInputElement;
-        prompt_item.value = common_prfx + suffix_text;
+        prompt_item.value = common_prfx + suffix_text + (suffix_text_arr.length > 1 ? "/" : "");
     }
 
     async onload() {
